@@ -9,6 +9,7 @@
 \usepackage[hang,flushmargin]{footmisc} 
 \usepackage{graphicx}          %%\includegraphics
 \usepackage{pdfcomment}        % use \pdftooltip to add Alt-text to figure
+\usepackage{tocloft}                 % format TOC, LOF, TOL
   %sectsty commands
   % all section headers use the same sans serif family - roboto
   \allsectionsfont{\sffamily\selectfont\roboto\mdseries\bfseries}
@@ -44,6 +45,61 @@
 
 
 
+ % Set fonts in TOC, LOT, and LOF
+ \renewcommand{\contentsname}{\hfill\sffamily\textcolor[cmyk]{0.90, 0.54, 0.28, 0.12}{Contents}\hfill} % set TOC title format
+  \renewcommand{\cftaftertoctitle}{\hfill}         % centers TOC title
+  \renewcommand{\listtablename}{\hfill\sffamily\textcolor[cmyk]{0.90, 0.54, 0.28, 0.12}{Tables}} % set LOT title format
+  \renewcommand{\cftafterlottitle}{\hfill}         % center LOT title 
+  \renewcommand{\listfigurename}{\hfill\sffamily\textcolor[cmyk]{0.90, 0.54, 0.28, 0.12}{Figures}} % set LOF title format
+  \renewcommand{\cftafterloftitle}{\hfill}         % center LOF title
+  \renewcommand\cftsecfont{\normalfont}            % set TOC section format
+  \renewcommand\cftsubsecfont{\normalfont}         % set TOC subsection format
+  \renewcommand\cftsubsubsecfont{\normalfont}      % set TOC subsubsection format
+  \renewcommand\cftparafont{\normalfont}           % set TOC paragraph format
+  \renewcommand\cftsecpagefont{\normalfont}        % set TOC section page number format
+  \renewcommand\cftsubsecpagefont{\normalfont}     % set TOC subsection page number format
+  \renewcommand\cftsubsubsecpagefont{\normalfont}  % set TOC subsubsection page number format
+  \renewcommand\cftparapagefont{\normalfont}       % set TOC paragraph page number format
+  \renewcommand\cfttabfont{\normalfont}            % set LOF font
+  \renewcommand\cfttabpagefont{\normalfont}        % set LOF page number font
+  \renewcommand\cftfigfont{\normalfont}            % set LOF font
+  \renewcommand\cftfigpagefont{\normalfont}        % set LOF page number font
+  
+  % Set Tech Memo specific indent values for TOC
+    % TOC indents
+      \renewcommand{\cftsecindent}{0in}
+      \renewcommand{\cftsubsecindent}{0.1701in}
+      \renewcommand{\cftsubsubsecindent}{0.3418in}
+    % LOF leaders and format
+      \renewcommand{\cftfigpresnum}{Figure\ }
+    \renewcommand{\cftfigaftersnum}{.}
+    %LOT leaders and format
+       \renewcommand{\cfttabpresnum}{Table\ }
+       \renewcommand{\cfttabaftersnum}{.}
+   
+   % Correct spacing for LOF/T leaders 
+    \newlength{\mylenf}
+    \settowidth{\mylenf}{\cftfigpresnum\cftfigaftersnum}
+    \setlength{\cftfignumwidth}{\dimexpr\mylenf+0.75em}
+    \setlength{\cfttabnumwidth}{\dimexpr\mylenf+0.75em}
+
+% Add dots between section titles and page numbers in TOC
+    \renewcommand{\cftsecleader}{\cftdotfill{\cftdot}}
+% Make dot spacing in TOC LOF/T match TM style
+    \renewcommand{\cftsecdotsep}{1}
+     \renewcommand{\cftsubsecdotsep}{0.4}
+     \renewcommand{\cftsubsubsecdotsep}{0.4}
+     \renewcommand{\cftfigdotsep}{0.5}
+     \renewcommand{\cfttabdotsep}{0.5}
+
+  %Set font in tables
+    \makeatletter
+	\renewenvironment{table}%
+  	{\renewcommand{\familydefault}{\rmdefault}\selectfont
+ 	 \@float{table}}
+  	{\end@float}
+      \makeatother
+
 %%The following sets up how the pdf displays links and functions in Acrobat.
 \hypersetup{
     bookmarks    = true,        % show bookmarks bar?
@@ -74,25 +130,77 @@
       }%
       \xpretocmd{\maketitle}{\TitlePageFont}{}{}
 \title{\textcolor[cmyk]{1.00,0.83,0.41,0.36}{Example NWFSC Tech Memo Template}}
-\author{Chantel Wetzel, Erin Steiner, Jason E. Jannot}
+\author{Chantel Wetzel, Erin Steiner, Jason E. Jannot\\
+\small{Al Brown will create title pages, thus the format of this page is not important.}}
  
 \begin{document}
 \maketitle
-\tableofcontents
-\listoffigures
+\newpage
 \normalfont % this sets the main font to crimson
-\normalsize %% return the text to 12 point font - otherwise you end up with 22 point font!
-
-	
-\section{Section Header}
+\normalsize %% return the text to 12 point font - otherwise you end up with 22 point font from title page
+\pagenumbering{roman}  %Set front matter (order: TOC, LOF, TOL, Executive Summary, Dedication, Acknowld) page numbers in lower roman numeral
+\setcounter{page}{3}     % Start page number from iii as 1st 2 pages have no number
+\tableofcontents
+\newpage
+\listoftables
+\newpage
+\listoffigures
+\newpage
+\section{Executive Summary}
 \lipsum[1]
-testing the footnote.\footnote{this is in arabic numerals with a space between note and script}
-\subsection{Subsection Header}
 \lipsum[2]
-\subsubsection{Subsubsection Header}
+\newpage
+\section{Dedication}
+Dedicated to all the excellent \LaTeX users at NWFSC.
+\newpage
+\section{Acknowledgements}
+We would like to thank Al Brown, Technical Editor for the NWFSC for his help, patience, and fortitude during this process.
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\thispagestyle{empty}	
+\section{Introduction}
+The first page of the introduction should not have a page number; however, the arabic page number 1 should appear in the TOC. To accomplish this, simply add the following commands at the end of the Acknowledgements, before the Introduction section.\\
+\\
+\texttt{\textbackslash pagenumbering\{arabic\}\\
+	\textbackslash setcounter\{page\}\{1\}\\
+	\textbackslash thispagestyle\{empty\}\\
+}
+\\
+testing the footnote.\footnote{this is in arabic numerals with a space between note and script}\\
+\\
 \lipsum[3]
-\paragraphnewline{Paragraph Header}
+
+\subsection{Subsection Header}
+\lipsum[3]
+\begin{figure}[h]
+\caption{A figure}
+\centering xyz
+\end{figure}
+
+\begin{table}[h]
+\caption{Some table}
+\centering abc
+\end{table}
+
 \lipsum[4]
+
+\subsubsection{Subsubsection Header}
+\lipsum[5]
+\begin{figure}[h]
+\caption{Another figure}
+\centering lmnop
+\end{figure}
+
+\lipsum[6]
+
+\paragraphnewline{Paragraph Header}
+\lipsum[7]
+
+\begin{table}[h]
+\caption{Some other table}
+\centering qrstuv
+\end{table}
 
 
 \begin{figure}[!h]
