@@ -1,5 +1,6 @@
 \documentclass[12pt]{article}
 \usepackage[left=1in, right=1in, top=1in, bottom=1in, footnotesep=.25in]{geometry}
+\usepackage{placeins}           % adds \FloatBarrier to keep floats in place
 \usepackage[table]{xcolor}     % controls color of text, including headers
 \usepackage{roboto}            % sans serif font for headers
 \usepackage{crimson}           % serif font
@@ -110,10 +111,10 @@
     pdfstartview = {FitH},      % fits the width of the page to the window
     pdfnewwindow = true,        % links in new window
     colorlinks   = true,        % false: boxed links; true: colored links
-    linkcolor    = blue,        % color of internal links (change box color with linkbordercolor)
-    citecolor    = green,       % color of links to bibliography
-    filecolor    = magenta,     % color of file links
-    urlcolor     = cyan         % color of external links
+    linkcolor    = black,        % color of internal links (change box color with linkbordercolor)
+    citecolor    = black,       % color of links to bibliography
+    filecolor    = black,        % color of file links
+    urlcolor     = black         % color of external links
 }
 
 	
@@ -149,11 +150,13 @@
 \listoffigures
 \newpage
 \section{Executive Summary}
+This document acts as a template to create the format and style of a NWFSC Technical Memorandum using \LaTeX.\\
+\\
 \lipsum[1]
 \lipsum[2]
 \newpage
 \section{Dedication}
-Dedicated to all the excellent \LaTeX users at NWFSC.
+Dedicated to all the excellent \LaTeX  users at NWFSC.
 \newpage
 \section{Acknowledgements}
 We would like to thank Al Brown, Technical Editor for the NWFSC for his help, patience, and fortitude during this process.
@@ -161,34 +164,66 @@ We would like to thank Al Brown, Technical Editor for the NWFSC for his help, pa
 \pagenumbering{arabic}
 \setcounter{page}{1}
 \thispagestyle{empty}	
-\section{Introduction}
+\section{Document Layout}
+The layout in this document serves as an example of the order of parts for the front matter, main text, and back matter.
+\section{Page Layout}
+\subsection{Page Numbering}
 The first page of the introduction should not have a page number; however, the arabic page number 1 should appear in the TOC. To accomplish this, simply add the following commands at the end of the Acknowledgements, before the Introduction section.\\
 \\
 \texttt{\textbackslash pagenumbering\{arabic\}\\
 	\textbackslash setcounter\{page\}\{1\}\\
 	\textbackslash thispagestyle\{empty\}\\
 }
-\\
-testing the footnote.\footnote{this is in arabic numerals with a space between note and script}\\
-\\
-\lipsum[3]
 
-\subsection{Subsection Header}
-\lipsum[3]
-\begin{figure}[h]
-\caption{A figure}
-\centering xyz
+\subsection{Fonts}
+\FloatBarrier
+\begin{table}[h]
+\caption{Font specifications for NWFSC NOAA Technical Memorandums}
+\begin{center}
+\begin{tabular}{llrll}
+%\begin{tabular}
+\textbf{Text} & \textbf{Typeface} & \textbf{Size (pt.)} & \textbf{Color (cmyk)} & \textbf{Align}\\
+\hline
+Title & {\selectfont\roboto\fontseries{b} roboto bold} & 22 & 1.00,0.83,0.41,0.36 & right\\
+Subtitle & {\selectfont\roboto\normalfont roboto regular} & 18 & 1.00,0.83,0.41,0.36 & right\\
+Header 1 & {\selectfont\roboto\fontseries{b} roboto bold} & 20 & 0.94,0.54,0.28,0.12 & center\\
+Header 2 & {\selectfont\roboto\fontseries{b} roboto bold} & 18 & 0.94,0.54,0.28,0.12 & center\\
+Header 3 & {\selectfont\roboto\fontseries{b} roboto bold} & 16 & 0.50,0.05,0.00,0.41 & left\\
+Header 4 & {\selectfont\robotocondensed\fontseries{bl} roboto light condensed bold} & 14 & 0.50,0.05,0.00,0.41 & left\\
+Header 5 & {\selectfont\robotocondensed\fontseries{l}\itshape roboto light condensed italic} & 14 & 0.50,0.05,0.00,0.41 & left\\
+Body & crimson & 12 & black & left \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+\FloatBarrier
+\subsection{Margins and Spacing}
+Page margins should be 1 inch all around.  Spacing between each paragraph should be 12 point.
+\subsection{Footnotes}
+Footnotes in tables are generally frowned upon.  However, if you must, table footnotes for NOAA Technical Memorandum use lowercase letter(s) as the footnote indicator. The footnote\footnote{Text footnotes are in arabic numerals with a space between note and script, in 10 point font.} at the bottom of this page discusses how to set up footnotes in the body. Footnote numbering restarts from 1 in each appendix.\\
+\section{Figures and Tables}
+\subsection{Tables}
+Tables have no vertical lines and no shading.  Table and caption font is crimson, the same as the body text. Font size within tables can be 9 - 11 point, but font size must be the same for all tables. Captions are 11 point font left aligned, the width of the page with a 0.3 inch hanging indent on the second and subsequent lines, and appear above the table.  The table is centered 0.125 inches below the caption.  More table specifications can be found in the NWFSC Style Guide\footnote{https://homeport.northwestscience.fisheries.noaa.gov/outreach\_media/Publishing/Style\_Guide/sg\_format\_tabfig.cfm}.
+\subsection{Figures}
+Colors palettes used in figures can be found on the NWFSC website\footnote{https://homeport.northwestscience.fisheries.noaa.gov/outreach\_media/Publishing/tmpr\_colors.cfm}.  Caption font is crimson, the same as the body text. Captions are 11 point font left aligned, the width of the page with a 0.3 inch hanging indent on the second and subsequent lines, and appear below the figure.  The figure is centered 0.125 inches above the caption.  More figure specifications can be found in the NWFSC Style Guide\footnote{https://homeport.northwestscience.fisheries.noaa.gov/outreach\_media/Publishing/Style\_Guide/sg\_format\_tabfig.cfm}.
+
+\begin{figure}[!h]
+\centering
+\caption[Demo Alt-text]{This is meant to demo the use of \texttt{\textbackslash pdftooltip} to add Alt-Text to a figure.}
+\label{fig:diamprice5k}
+ \pdftooltip{\includegraphics[scale=0.75]{diamprice5k.png}}{Here is a plot of the prices of 5,000 round cut diamonds.}
 \end{figure}
 
-\begin{table}[h]
-\caption{Some table}
-\centering abc
-\end{table}
+\section{Cross-References and Hyperlinks}
+Cross-references and hyperlinks are not colored -- they're just black. So all TOC, LOT, and LOF entries and in-line references to tables or figures should be black. Hyperlinks are also black. In the body text, they're underlined and footnoted. In the footnote, the URL is written out in full but is black and not underlined. 
 
-\lipsum[4]
-
-\subsubsection{Subsubsection Header}
+\section{More Examples}
+For anything not addressed above, please see the NWFSC Style Guide or email Al Brown, NWFSC Technical Editor.
+The remainder of this document is simply meant to show how to format various headers not captured above and to add more entries into the TOC, LOT, and LOF.
+\subsection{Subsection Header}
 \lipsum[5]
+\subsubsection{Subsubsection Header}
+\lipsum[3]
 \begin{figure}[h]
 \caption{Another figure}
 \centering lmnop
@@ -204,12 +239,17 @@ testing the footnote.\footnote{this is in arabic numerals with a space between n
 \centering qrstuv
 \end{table}
 
+\begin{table}[h]
+\caption{Some table}
+\centering abc
+\end{table}
 
-\begin{figure}[!h]
-\centering
-\caption[Prices round cut]{This is a plot of the prices of 5,000 round cut diamonds.}
-\label{fig:diamprice5k}
- \pdftooltip{\includegraphics[scale=0.75]{diamprice5k.png}}{Here is a plot of the prices of 5,000 round cut diamonds.}
-\end{figure}
+\lipsum[4]
+
+\section{References}
+put your references here.
+\newpage
+\appendix
+\section{Example appendix}
 
 \end{document}
